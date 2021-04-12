@@ -10,3 +10,11 @@ spring:
       maxIdle: 10
       maxWait: 3
       maxActive: 8
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    username: zhangzw
+    password: 123456
+    url: jdbc:mysql://localhost:3306/mysql?characterEncoding=utf-8&useSSL=false
+  mybatis-plus:
+    mapper-locations: classpath*:mapperConfig/*.xml
