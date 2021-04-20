@@ -17,4 +17,11 @@ spring:
     password: 1qazxsw2
     url: jdbc:mysql://192.168.161.81:11811/bbsgo_db?characterEncoding=utf-8&useSSL=false
   mybatis-plus:
+    global-config:
+      db-config:
+        #不刪除
+        logic-delete-value: 1
+        #
+        logic-not-delete-value: 0
     mapper-locations: classpath*:mapper.sys/*.xml
+    type-aliases-package: com.zzw.springboot.user

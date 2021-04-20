@@ -1,8 +1,12 @@
 package com.zzw.springboot.sys.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzw.springboot.sys.entity.TUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +20,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TUserMapper extends BaseMapper<TUser> {
 
     int insert(TUser entity);
+
+    IPage<TUser> findAllByPage(Page<TUser> page);
 
 }
