@@ -50,8 +50,13 @@ public class Test {
         System.out.println(str.indexOf("fs"));
         StringBuilder sbr = new StringBuilder(str);
         System.out.println(sbr.reverse());
-
-
+        System.out.println(sbr.hashCode());
+        System.out.println(sbr);
+        Test test = new Test();
+        System.out.println(test.hashCode());
+        System.out.println(test);
+        System.out.println(System.identityHashCode(test));
+        System.out.println(System.identityHashCode(sbr));
 
     }
 }

@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class CountDownLatchTest {
     public static void main(String[] args) {
-        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        final CountDownLatch countDownLatch = new CountDownLatch(3);
         new Thread(()->{
             System.out.println("子线程1开始执行：");
             try {

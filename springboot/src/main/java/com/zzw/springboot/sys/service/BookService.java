@@ -20,13 +20,6 @@ public class BookService {
     @Autowired
     private  TransactionTemplate transactionTemplate;
 
-//    public BookService(BookRepository bookRepository,
-//                       ESBookRepository esBookRepository,
-//                       TransactionTemplate transactionTemplate) {
-//        this.bookRepository = bookRepository;
-//        this.esBookRepository = esBookRepository;
-//        this.transactionTemplate = transactionTemplate;
-//    }
 
     public void addBook(Book book) {
         final Book saveBook = transactionTemplate.execute((status) ->

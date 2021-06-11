@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisService {
@@ -87,6 +88,23 @@ hash 类型其实原理和 string 一样的，但是有两个 key，使用 strin
         HashOperations<String, Object, Object> stringObjectObjectHashOperations = stringRedisTemplate.opsForHash();
         Object o = stringObjectObjectHashOperations.get("hash0", "name0");
         return o;
+    }
+    public String deductStock(){
+        String lockKey = "product_01";
+        Boolean result = stringRedisTemplate.opsForValue().setIfAbsent(lockKey,"zhangsan",10, TimeUnit.MICROSECONDS);
+        if(!result){
+            return "error_code";
+        }
+        Integer stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
+        if(stock>0){
+            int realStock = stock -1;
+            stringRedisTemplate.opsForValue().set("stock",realStock+"");
+            System.out.println("扣减成功,剩余库存："+realStock);
+        }else{
+            System.out.println("扣减失败,库存不足");
+        }
+        stringRedisTemplate.delete(lockKey);
+        return "end";
     }
 }
 
