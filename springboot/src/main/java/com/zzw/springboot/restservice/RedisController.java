@@ -76,5 +76,10 @@ public class RedisController {
         redisService.setRedisHash();
         return  "success";
     }
+
+    @GetMapping("deductStock")
+    public String deductStock(){
+        return redisService.deductStock();
+    }
 }
 

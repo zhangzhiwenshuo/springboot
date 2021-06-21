@@ -3,6 +3,9 @@ package com.zzw.springboot.redis;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zzw.springboot.user.User;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -10,12 +13,17 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisService {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
+
+    @Autowired
+    private Redisson redisson;
 
     //string 类型
     /*
@@ -91,19 +99,28 @@ hash 类型其实原理和 string 一样的，但是有两个 key，使用 strin
     }
     public String deductStock(){
         String lockKey = "product_01";
-        Boolean result = stringRedisTemplate.opsForValue().setIfAbsent(lockKey,"zhangsan",10, TimeUnit.MICROSECONDS);
-        if(!result){
-            return "error_code";
+        String clientId = UUID.randomUUID().toString();
+        RLock redissonLock = redisson.getLock(lockKey);
+        try {
+          /*  Boolean result = stringRedisTemplate.opsForValue().setIfAbsent(lockKey,clientId,100, TimeUnit.SECONDS);
+            if(!result){
+                return "error_code";
+            }*/
+            redissonLock.lock();
+            Integer stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
+            if(stock>0){
+                int realStock = stock -1;
+                stringRedisTemplate.opsForValue().set("stock",realStock+"");
+                System.out.println("扣减成功,剩余库存："+realStock);
+            }else{
+                System.out.println("扣减失败,库存不足");
+            }
+        } finally {
+            redissonLock.unlock();
+             /* if(clientId.equals(stringRedisTemplate.opsForValue().get(lockKey))){
+                  stringRedisTemplate.delete(lockKey);
+              }*/
         }
-        Integer stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
-        if(stock>0){
-            int realStock = stock -1;
-            stringRedisTemplate.opsForValue().set("stock",realStock+"");
-            System.out.println("扣减成功,剩余库存："+realStock);
-        }else{
-            System.out.println("扣减失败,库存不足");
-        }
-        stringRedisTemplate.delete(lockKey);
         return "end";
     }
 }
