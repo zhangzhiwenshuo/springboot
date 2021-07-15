@@ -12,10 +12,10 @@ spring:
       maxActive: 8
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name:  com.mysql.jdbc.Driver
-    username: test
-    password: 1qazxsw2
-    url: jdbc:mysql://192.168.161.81:11811/bbsgo_db?characterEncoding=utf-8&useSSL=false
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    username: root
+    password: qazwsx
+    url: jdbc:mysql://localhost:3306/bbsgo_db?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
   mybatis-plus:
     global-config:
       db-config:
