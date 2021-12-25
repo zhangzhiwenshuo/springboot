@@ -3,7 +3,7 @@ server:
 spring:
   # redis
   redis:
-    host: 47.101.212.134
+    host:
     port: 6378
     timeout: 3000
     #password:
@@ -33,10 +33,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: poc.megalinkware.com:3375  #Nacos作为服务注册中心地址
+        server-addr:   #Nacos作为服务注册中心地址
         service: aaa
       config:
-        server-addr: poc.megalinkware.com:3375  #Nacos作为配置中心地址file-extension: yml  #指定yaml格式的配置
+        server-addr:  #Nacos作为配置中心地址file-extension: yml  #指定yaml格式的配置
 management:
   endpoint:
     web:
