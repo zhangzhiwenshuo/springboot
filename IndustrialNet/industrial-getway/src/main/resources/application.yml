@@ -1,0 +1,19 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: nacos-getway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: nacos-getway-provider
+          uri: http://localhost:8081
+          predicates:
+            - Path=/provider/**

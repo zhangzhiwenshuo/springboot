@@ -77,9 +77,9 @@ public class RedisController {
         return  "success";
     }
 
-    @GetMapping("deductStock")
-    public String deductStock(){
-        return redisService.deductStock();
-    }
+//    @GetMapping("deductStock")
+//    public String deductStock(){
+//        return redisService.deductStock();
+//    }
 }
 

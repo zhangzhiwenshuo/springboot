@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
+FROM java:8
+COPY *.jar /app.jar
+CMD ["--server.port=8080"]
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]

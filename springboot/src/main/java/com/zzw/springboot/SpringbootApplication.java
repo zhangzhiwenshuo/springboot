@@ -16,12 +16,12 @@ public class SpringbootApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringbootApplication.class, args);
     }
-    @Bean
-    public Redisson redisson(){
-        //此为单例模式
-        Config config = new Config();
-        config.useSingleServer().setAddress("redis://localhost:6379").setDatabase(0);
-        return (Redisson) Redisson.create(config);
-    }
+//    @Bean
+//    public Redisson redisson(){
+//        //此为单例模式
+//        Config config = new Config();
+//        config.useSingleServer().setAddress("redis://localhost:6379").setDatabase(0);
+//        return (Redisson) Redisson.create(config);
+//    }
 
 }

@@ -22,8 +22,8 @@ public class RedisService {
     private StringRedisTemplate stringRedisTemplate;
 
 
-    @Autowired
-    private Redisson redisson;
+//    @Autowired
+//    private Redisson redisson;
 
     //string 类型
     /*
@@ -97,31 +97,31 @@ hash 类型其实原理和 string 一样的，但是有两个 key，使用 strin
         Object o = stringObjectObjectHashOperations.get("hash0", "name0");
         return o;
     }
-    public String deductStock(){
-        String lockKey = "product_01";
-        String clientId = UUID.randomUUID().toString();
-        RLock redissonLock = redisson.getLock(lockKey);
-        try {
-          /*  Boolean result = stringRedisTemplate.opsForValue().setIfAbsent(lockKey,clientId,100, TimeUnit.SECONDS);
-            if(!result){
-                return "error_code";
-            }*/
-            redissonLock.lock();
-            Integer stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
-            if(stock>0){
-                int realStock = stock -1;
-                stringRedisTemplate.opsForValue().set("stock",realStock+"");
-                System.out.println("扣减成功,剩余库存："+realStock);
-            }else{
-                System.out.println("扣减失败,库存不足");
-            }
-        } finally {
-            redissonLock.unlock();
-             /* if(clientId.equals(stringRedisTemplate.opsForValue().get(lockKey))){
-                  stringRedisTemplate.delete(lockKey);
-              }*/
-        }
-        return "end";
-    }
+//    public String deductStock(){
+//        String lockKey = "product_01";
+//        String clientId = UUID.randomUUID().toString();
+//        RLock redissonLock = redisson.getLock(lockKey);
+//        try {
+//          /*  Boolean result = stringRedisTemplate.opsForValue().setIfAbsent(lockKey,clientId,100, TimeUnit.SECONDS);
+//            if(!result){
+//                return "error_code";
+//            }*/
+//            redissonLock.lock();
+//            Integer stock = Integer.parseInt(stringRedisTemplate.opsForValue().get("stock"));
+//            if(stock>0){
+//                int realStock = stock -1;
+//                stringRedisTemplate.opsForValue().set("stock",realStock+"");
+//                System.out.println("扣减成功,剩余库存："+realStock);
+//            }else{
+//                System.out.println("扣减失败,库存不足");
+//            }
+//        } finally {
+//            redissonLock.unlock();
+//             /* if(clientId.equals(stringRedisTemplate.opsForValue().get(lockKey))){
+//                  stringRedisTemplate.delete(lockKey);
+//              }*/
+//        }
+//        return "end";
+//    }
 }
 

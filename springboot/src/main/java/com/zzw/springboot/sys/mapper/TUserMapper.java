@@ -19,8 +19,6 @@ import java.util.List;
 @Mapper
 public interface TUserMapper extends BaseMapper<TUser> {
 
-    int insert(TUser entity);
-
     IPage<TUser> findAllByPage(Page<TUser> page);
 
 }
